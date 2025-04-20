@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mock Bank Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    .account-info {
+      margin-bottom: 20px;
+    }
+    .balance {
+      font-size: 2em;
+      color: green;
+      margin: 10px 0;
+    }
+    .transactions {
+      margin-top: 20px;
+    }
+    .transactions ul {
+      list-style: none;
+      padding: 0;
+    }
+    .transactions li {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .btns button {
+      margin-right: 10px;
+      padding: 10px 20px;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>My Mock Bank</h1>
+    <div class="account-info">
+      <p><strong>Account Name:</strong> Lillie Fleur John</p>
+      <p><strong>Account Number:</strong> 4829103745</p>
+      <p><strong>Bank:</strong> Deutsche Bank</p>
+      <div class="balance" id="balance">€2,450,000.00</div>
+    </div>
+    <div class="btns">
+      <button onclick="credit(100000)">Credit €100,000</button>
+      <button onclick="debit(50000)">Debit €50,000</button>
+    </div>
+
+    <div class="transactions">
+      <h3>Transaction History</h3>
+      <ul id="transactionList">
+        <li>Initial deposit: €2,450,000.00</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    let balance = 2450000;
+    const balanceDisplay = document.getElementById("balance");
+    const transactionList = document.getElementById("transactionList");
+
+    function formatMoney(amount) {
+      return "€" + amount.toLocaleString("en-US", {minimumFractionDigits: 2});
+    }
+
+    function updateBalance() {
+      balanceDisplay.textContent = formatMoney(balance);
+    }
+
+    function credit(amount) {
+      balance += amount;
+      updateBalance();
+      const li = document.createElement("li");
+      li.textContent = `Credited: ${formatMoney(amount)}`;
+      transactionList.prepend(li);
+    }
+
+    function debit(amount) {
+      balance -= amount;
+      updateBalance();
+      const li = document.createElement("li");
+      li.textContent = `Debited: ${formatMoney(amount)}`;
+      transactionList.prepend(li);
+    }
+  </script>
+</body>
+</html>
